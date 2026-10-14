@@ -16,7 +16,9 @@ a{color:inherit;text-decoration:none}ul{list-style:none}
 @keyframes marq{to{transform:translateX(-50%)}}
 
 /* header */
-.header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);background:rgba(13,13,13,.8);backdrop-filter:blur(12px)}
+.header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad)}
+/* le flou est sur un pseudo-élément : un backdrop-filter sur .header piégeait le menu mobile (position:fixed) dans la barre */
+.header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(13,13,13,.8);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .logo{font:900 26px/1 var(--head);letter-spacing:.04em;text-transform:uppercase}.logo span{color:var(--accent)}
 #nav{display:flex;gap:34px;align-items:center;font-size:14px}
 #nav a{position:relative;padding-block:4px}
@@ -61,9 +63,6 @@ h1{font-size:clamp(64px,13vw,210px)}
 .works{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,3vw,48px);margin-top:70px}
 .work{grid-column:span 6}.w2{margin-top:90px}.w3{grid-column:span 5}.w4{grid-column:span 7;margin-top:-40px}
 .work-img{aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#2b2b29,#1a1a19);position:relative;border-radius:4px}
-.work-img::after{content:"";position:absolute;inset:0;background:var(--g,linear-gradient(135deg,#ff5a36,#7a1f0d));opacity:.35;transition:transform .8s,opacity .4s}
-.w2{--g:linear-gradient(135deg,#d8d4c8,#6b675c)}.w3{--g:linear-gradient(135deg,#6f8cff,#1c2a66)}.w4{--g:linear-gradient(135deg,#4ee0a5,#0b4a34)}
-.work:hover .work-img::after{transform:scale(1.08);opacity:.6}
 .work h3{font:700 clamp(22px,2.4vw,32px)/1.2 var(--body);margin-top:18px}.work p{color:var(--muted);font-size:14px}
 .round{display:grid;place-items:center;width:190px;height:190px;margin:80px auto 0;border:1px solid var(--fg);border-radius:50%;text-align:center;font-size:14px;line-height:1.4;transition:.4s}
 .round:hover{background:var(--accent);border-color:var(--accent);color:#111;transform:scale(1.06)}
@@ -93,8 +92,21 @@ h1{font-size:clamp(64px,13vw,210px)}
 @media(max-width:900px){
   .grid-2{grid-template-columns:1fr}
   .burger{display:block}
-  #nav{position:fixed;inset:0;flex-direction:column;justify-content:center;gap:26px;font-size:28px;background:var(--bg);opacity:0;visibility:hidden;transition:.3s;z-index:-1}
-  .menu-open #nav{opacity:1;visibility:visible}
+  #nav{position:fixed;inset:0;z-index:-1;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:110px 24px 70px;
+    font:900 clamp(34px,9vw,52px)/1.1 var(--head);text-transform:uppercase;letter-spacing:.03em;text-align:center;
+    background:radial-gradient(ellipse at 50% 0%,rgba(255,26,26,.14),transparent 60%),rgba(13,13,13,.94);
+    -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+    opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .3s,transform .3s,visibility .3s}
+  .menu-open #nav{opacity:1;visibility:visible;transform:none}
+  .menu-open{overflow:hidden}
+  #nav a{padding:10px 18px}
+  #nav a:not(.nav-cta)::after{left:18px;width:calc(100% - 36px);bottom:6px}
+  .nav-cta{margin-top:22px;font:500 16px var(--body);text-transform:none;letter-spacing:0;padding:13px 38px!important}
+  .menu-open #nav a{animation:navIn .45s both}
+  .menu-open #nav a:nth-child(2){animation-delay:.05s}.menu-open #nav a:nth-child(3){animation-delay:.1s}
+  .menu-open #nav a:nth-child(4){animation-delay:.15s}.menu-open #nav a:nth-child(5){animation-delay:.2s}
+  .menu-open #nav a:nth-child(6){animation-delay:.25s}
+  .method{grid-template-columns:repeat(2,1fr)!important}
   .work,.w3,.w4{grid-column:1/-1;margin-top:0}.w2{margin-top:0}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
@@ -165,3 +177,31 @@ h1:hover,h2:hover,h3:hover,p:hover,li:hover,label:hover,span:hover,b:hover,
 .social-menu a:hover{border-color:var(--red)}
 .social-menu svg{width:20px;height:20px;flex:none}
 .social-menu span{padding:0!important}
+
+/* ===== Projets : images naturelles + bouton ===== */
+.work-img{display:block;background:#161616}
+.work-btn{margin-top:20px;padding:11px 26px}
+
+/* ===== Menu mobile : animation d'entrée ===== */
+@keyframes navIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ===== Méthodologie & compétences ===== */
+.title-xxl.wide{max-width:16ch}
+.method{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.4vw,36px);margin:60px 0 56px}
+.method li{border-top:1px solid var(--line);padding-top:18px}
+.method .num{display:block;font-size:13px;color:var(--accent);margin-bottom:8px}
+.method h3{font:900 clamp(26px,2.6vw,38px)/1 var(--head);text-transform:uppercase;margin-bottom:10px}
+.method p{color:var(--muted);font-size:14px;line-height:1.6}
+@media(max-width:520px){.method{grid-template-columns:1fr!important}}
+
+.skills-box{position:relative;border:1px solid var(--line);border-radius:20px;overflow:hidden;isolation:isolate;
+  background:radial-gradient(ellipse at 15% 0%,rgba(255,26,26,.10),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(120,120,170,.13),transparent 55%),var(--bg2);
+  display:flex;flex-wrap:wrap;gap:12px;padding:52px 20px 24px}
+.js .skills-box{display:block;padding:0;height:clamp(420px,64vh,580px);touch-action:pan-y}
+.box-label{position:absolute;left:22px;top:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);pointer-events:none;z-index:0}
+.ball{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;border:1.5px solid var(--c,#888);
+  font:600 14px/1 var(--body);color:var(--fg);text-align:center;user-select:none;-webkit-user-select:none;
+  background:#141414;background:radial-gradient(circle at 30% 25%,color-mix(in srgb,var(--c,#888) 38%,#1b1b1b),#101010 78%);
+  box-shadow:0 0 22px color-mix(in srgb,var(--c,#888) 32%,transparent),inset 0 0 14px rgba(255,255,255,.04);transition:color .2s}
+.ball:hover{color:var(--red)}
+.js .ball{position:absolute;left:0;top:0;will-change:transform}

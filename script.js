@@ -141,4 +141,80 @@
     d.addEventListener("click",function(e){if(!box.contains(e.target))set(false)});
     d.addEventListener("keydown",function(e){if(e.key==="Escape"){set(false);setMenu(false)}});
   })();
+
+  /* ---------- Menu mobile : se ferme si on repasse en desktop ---------- */
+  window.addEventListener("resize",function(){if(window.innerWidth>900)setMenu(false)});
+
+  /* ---------- Compétences : balles qui rebondissent dans la boîte ---------- */
+  (function(){
+    var box=d.getElementById("skills-box"); if(!box)return;
+    var nodes=[].slice.call(box.querySelectorAll(".ball")); if(!nodes.length)return;
+    var W=0,H=0,balls=[],running=false,last=0,raf=0;
+
+    function size(){
+      W=box.clientWidth; H=box.clientHeight;
+      var base=Math.max(56,Math.min(92,W/10.5));
+      balls.forEach(function(o){
+        var len=o.el.textContent.length;
+        var dia=Math.round(base*(len>7?1.12:len>5?1.04:1));
+        o.r=dia/2;
+        o.el.style.width=o.el.style.height=dia+"px";
+        o.el.style.fontSize=Math.max(10,Math.round(dia*(len>7?.17:len>5?.2:.25)))+"px";
+        o.x=Math.min(Math.max(o.x,o.r),W-o.r);
+        o.y=Math.min(Math.max(o.y,o.r),H-o.r);
+      });
+    }
+    function init(){
+      W=box.clientWidth; H=box.clientHeight;
+      balls=nodes.map(function(el){
+        var a=Math.random()*Math.PI*2, v=50+Math.random()*50;
+        return {el:el,r:40,x:60+Math.random()*Math.max(W-120,1),y:60+Math.random()*Math.max(H-120,1),vx:Math.cos(a)*v,vy:Math.sin(a)*v};
+      });
+      size();
+    }
+    function render(){
+      for(var i=0;i<balls.length;i++){
+        var o=balls[i];
+        o.el.style.transform="translate3d("+(o.x-o.r).toFixed(1)+"px,"+(o.y-o.r).toFixed(1)+"px,0)";
+      }
+    }
+    function step(t){
+      var dt=Math.min((t-last)/1000,.04); last=t;
+      var i,j,o,p;
+      for(i=0;i<balls.length;i++){
+        o=balls[i]; o.x+=o.vx*dt; o.y+=o.vy*dt;
+        if(o.x<o.r){o.x=o.r;o.vx=Math.abs(o.vx)} else if(o.x>W-o.r){o.x=W-o.r;o.vx=-Math.abs(o.vx)}
+        if(o.y<o.r){o.y=o.r;o.vy=Math.abs(o.vy)} else if(o.y>H-o.r){o.y=H-o.r;o.vy=-Math.abs(o.vy)}
+      }
+      for(i=0;i<balls.length;i++){
+        for(j=i+1;j<balls.length;j++){
+          o=balls[i]; p=balls[j];
+          var dx=p.x-o.x, dy=p.y-o.y, dist=Math.sqrt(dx*dx+dy*dy), min=o.r+p.r;
+          if(dist<min){
+            if(dist<.001){dx=1;dy=0;dist=1}
+            var nx=dx/dist, ny=dy/dist, ov=(min-dist)/2;
+            o.x-=nx*ov; o.y-=ny*ov; p.x+=nx*ov; p.y+=ny*ov;
+            var rel=(o.vx-p.vx)*nx+(o.vy-p.vy)*ny;
+            if(rel>0){o.vx-=rel*nx; o.vy-=rel*ny; p.vx+=rel*nx; p.vy+=rel*ny}
+          }
+        }
+      }
+      // vitesse douce et constante : jamais d'arrêt, jamais d'emballement
+      for(i=0;i<balls.length;i++){
+        o=balls[i]; var s=Math.sqrt(o.vx*o.vx+o.vy*o.vy)||1, target=Math.max(42,Math.min(s,105));
+        if(s!==target){o.vx*=target/s; o.vy*=target/s}
+      }
+      render();
+    }
+    function loop(t){ if(!running)return; step(t); raf=requestAnimationFrame(loop); }
+    function start(){ if(running||reduce)return; running=true; last=performance.now(); raf=requestAnimationFrame(loop); }
+    function stop(){ running=false; cancelAnimationFrame(raf); }
+
+    init(); render();
+    window.addEventListener("resize",function(){size();render()});
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(es){es[0].isIntersecting&&!d.hidden?start():stop()},{threshold:.05}).observe(box);
+    }else start();
+    d.addEventListener("visibilitychange",function(){d.hidden?stop():start()});
+  })();
 })();
