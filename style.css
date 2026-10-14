@@ -124,3 +124,44 @@ h1{font-size:clamp(64px,13vw,210px)}
 .work:hover .work-img img {
   transform: scale(1.05);
 }
+
+/* ===== Variables ajoutées ===== */
+:root{--red:#ff1a1a}
+
+/* ===== Hero : fond animé (canvas) ===== */
+.hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.hero::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(13,13,13,.25),rgba(13,13,13,.55))}
+
+/* ===== Curseur lumineux ===== */
+.cursor-glow{position:fixed;top:0;left:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;pointer-events:none;z-index:98;opacity:0;
+  background:radial-gradient(circle,rgba(255,40,40,.32) 0%,rgba(255,40,40,.12) 35%,transparent 70%);
+  mix-blend-mode:screen;will-change:transform;transition:opacity .4s}
+.cursor-glow.on{opacity:1}
+@media(hover:none),(pointer:coarse){.cursor-glow{display:none}}
+
+/* ===== Texte rouge au survol ===== */
+h1,h2,h3,p,li,label,span,b,.logo,#nav a,.link,.ulink,.btn,.round,.band-track,.social-menu a{transition:color .2s ease,background-color .3s,border-color .3s,padding .4s,transform .3s,filter .3s}
+h1:hover,h2:hover,h3:hover,p:hover,li:hover,label:hover,span:hover,b:hover,
+.logo:hover,#nav a:hover,.link:hover,.ulink:hover,.btn:hover,.round:hover,
+.band-track:hover,.social-menu a:hover,.services a:hover,.work:hover h3,.work:hover p{color:var(--red)!important}
+.logo:hover span{color:var(--red)!important}
+
+/* ===== Formulaire ===== */
+.form-note{font-size:13px;min-height:1.4em;color:var(--muted)}
+.form input:invalid:not(:placeholder-shown):not(:focus),.form textarea:invalid:not(:placeholder-shown):not(:focus){border-color:var(--red)}
+.form .is-error{border-color:var(--red)!important}
+
+/* ===== Bouton social flottant ===== */
+.social{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.social-toggle{width:56px;height:56px;border-radius:50%;border:1px solid var(--fg);background:var(--bg2);color:var(--fg);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.5);transition:background .3s,color .3s,transform .3s}
+.social-toggle:hover{background:var(--red);border-color:var(--red);color:#fff;transform:scale(1.06)}
+.social-toggle svg{width:24px;height:24px;grid-area:1/1;transition:opacity .25s,transform .35s}
+.social-toggle .i-close{opacity:0;transform:rotate(-90deg)}
+.social.open .i-open{opacity:0;transform:rotate(90deg)}
+.social.open .i-close{opacity:1;transform:none}
+.social-menu{display:grid;gap:8px;opacity:0;visibility:hidden;transform:translateY(12px) scale(.96);transform-origin:bottom left;transition:opacity .25s,transform .3s,visibility .25s}
+.social.open .social-menu{opacity:1;visibility:visible;transform:none}
+.social-menu a{display:flex;align-items:center;gap:12px;padding:10px 20px 10px 14px;border-radius:99px;background:var(--bg2);border:1px solid var(--line);font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.45)}
+.social-menu a:hover{border-color:var(--red)}
+.social-menu svg{width:20px;height:20px;flex:none}
+.social-menu span{padding:0!important}
