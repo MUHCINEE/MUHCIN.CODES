@@ -24,6 +24,43 @@
 
   var y=d.getElementById("year");if(y)y.textContent=new Date().getFullYear();
 
+  /* ---------- Aperçu plein écran des réalisations ---------- */
+  (function(){
+    var lightbox=d.getElementById("project-lightbox");
+    if(!lightbox||typeof lightbox.showModal!=="function")return;
+    var image=lightbox.querySelector(".lightbox-image");
+    var close=lightbox.querySelector(".lightbox-close");
+    var trigger=null;
+
+    d.querySelectorAll("#works .work-img").forEach(function(button){
+      button.addEventListener("click",function(){
+        var preview=button.querySelector("img");
+        if(!preview)return;
+        trigger=button;
+        image.src=preview.currentSrc||preview.src;
+        image.alt=preview.alt;
+        lightbox.showModal();
+      });
+    });
+
+    close.addEventListener("click",function(){lightbox.close()});
+    lightbox.addEventListener("click",function(e){
+      if(e.target===lightbox)lightbox.close();
+    });
+    d.addEventListener("keydown",function(e){
+      if(e.key==="Escape"&&lightbox.open){
+        e.preventDefault();
+        lightbox.close();
+      }
+    });
+    lightbox.addEventListener("close",function(){
+      image.removeAttribute("src");
+      image.alt="";
+      if(trigger)trigger.focus();
+      trigger=null;
+    });
+  })();
+
   /* ---------- Hero : fond fluide animé (canvas) ---------- */
   (function(){
     var hero=d.querySelector(".hero"), cv=d.querySelector(".hero-canvas");
