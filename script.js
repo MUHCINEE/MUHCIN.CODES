@@ -3,7 +3,7 @@
 
   /* ================== CONFIG — à personnaliser ================== */
   // Numéro WhatsApp au format international, sans "+" ni espaces (ex : 212612345678)
-  var WHATSAPP_NUMBER = "212600000000";
+  var WHATSAPP_NUMBER = "212690461515";
   /* ============================================================== */
 
   var d=document, b=d.body, burger=d.querySelector(".burger"), nav=d.getElementById("nav");
