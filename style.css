@@ -205,3 +205,55 @@ h1:hover,h2:hover,h3:hover,p:hover,li:hover,label:hover,span:hover,b:hover,
   box-shadow:0 0 22px color-mix(in srgb,var(--c,#888) 32%,transparent),inset 0 0 14px rgba(255,255,255,.04);transition:color .2s}
 .ball:hover{color:var(--red)}
 .js .ball{position:absolute;left:0;top:0;will-change:transform}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.footer-socials a {
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  color: #e63946; 
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .footer-socials {
+    order: 2; 
+  }
+
+  .footer .logo {
+    order: 1;
+  }
+
+  .footer p {
+    order: 3;
+  }
+}
