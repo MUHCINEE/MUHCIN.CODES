@@ -60,11 +60,22 @@ h1{font-size:clamp(64px,13vw,210px)}
 .band-track{display:inline-block;animation:marq 40s linear infinite}.band-track.rev{animation-direction:reverse}
 
 /* works */
-.works{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,3vw,48px);margin-top:70px}
-.work{position:relative;z-index:1;isolation:isolate;grid-column:span 6}.w2{margin-top:90px}.w3{grid-column:span 5}.w4{grid-column:span 7;margin-top:-40px}
-.work-img{display:block;width:100%;aspect-ratio:4/3;padding:0;border:0;overflow:hidden;background:linear-gradient(135deg,#2b2b29,#1a1a19);position:relative;border-radius:4px;cursor:zoom-in;touch-action:manipulation}
+.works{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,36px);margin-top:clamp(36px,6vw,70px)}
+.work{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--bg2);transition:transform .35s,border-color .35s,background-color .35s}
+.work:hover{transform:translateY(-5px);border-color:#55514f;background-color:#191918}
+.work-img{display:block;width:100%;aspect-ratio:16/10;padding:0;border:0;overflow:hidden;background:#111;position:relative;cursor:zoom-in;touch-action:manipulation}
 .work-img:focus-visible{outline-offset:5px}
-.work h3{font:700 clamp(22px,2.4vw,32px)/1.2 var(--body);margin-top:18px}.work p{color:var(--muted);font-size:14px}
+.work-img img{display:block;width:100%;height:100%;object-fit:contain}
+.work-content{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:clamp(18px,2.5vw,28px)}
+.work h3{font:600 clamp(20px,2vw,26px)/1.25 var(--body);margin-bottom:8px}
+.work p{max-width:54ch;color:var(--muted);font-size:14px;line-height:1.7}
+.work-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:22px}
+.work-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:0;padding:11px 18px;font-size:13px}
+.work-actions .btn-outline:hover{background:var(--fg);color:var(--bg)!important}
+.btn-social{border:1px solid var(--line);color:var(--fg)}
+.btn-social:hover{border-color:var(--fg);background:rgba(255,255,255,.06);color:var(--fg)!important}
+.btn-social svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
+.btn-social .instagram-dot{fill:currentColor;stroke:none}
 .round{display:grid;place-items:center;width:190px;height:190px;margin:80px auto 0;border:1px solid var(--fg);border-radius:50%;text-align:center;font-size:14px;line-height:1.4;transition:.4s}
 .round:hover{background:var(--accent);border-color:var(--accent);color:#111;transform:scale(1.06)}
 
@@ -107,32 +118,14 @@ h1{font-size:clamp(64px,13vw,210px)}
   .menu-open #nav a:nth-child(2){animation-delay:.05s}.menu-open #nav a:nth-child(3){animation-delay:.1s}
   .menu-open #nav a:nth-child(4){animation-delay:.15s}  .menu-open #nav a:nth-child(5){animation-delay:.2s}
   .menu-open #nav a:nth-child(6){animation-delay:.25s}
-  .work,.w3,.w4{grid-column:1/-1;margin-top:0}.w2{margin-top:0}
+}
+@media(max-width:600px){
+  .works{grid-template-columns:1fr}
+  .work-actions{width:100%}
+  .work-btn{flex:1}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
 
-
-
-.work {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.work-img {
-  height: auto;
-  border-radius: 8px;
-}
-
-.work-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  transition: transform 0.3s ease;
-}
-.work:hover .work-img img {
-  transform: scale(1.05);
-}
 
 .work-btn{position:relative;z-index:2;isolation:isolate;pointer-events:auto;touch-action:manipulation}
 
@@ -187,10 +180,6 @@ h1:hover,h2:hover,h3:hover,p:hover,li:hover,label:hover,span:hover,b:hover,
 .social-menu a:hover{border-color:var(--red)}
 .social-menu svg{width:20px;height:20px;flex:none}
 .social-menu span{padding:0!important}
-
-/* ===== Projets : images naturelles + bouton ===== */
-.work-img{display:block;background:#161616}
-.work-btn{margin-top:20px;padding:11px 26px}
 
 /* ===== Menu mobile : animation d'entrée ===== */
 @keyframes navIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
