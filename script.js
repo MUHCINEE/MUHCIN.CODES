@@ -10,6 +10,31 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   b.classList.add("js");
 
+  /* ---------- Thème clair / sombre ---------- */
+  (function(){
+    var button=d.querySelector(".theme-toggle"), root=d.documentElement;
+    if(!button)return;
+    function setTheme(theme,save){
+      root.setAttribute("data-theme",theme);
+      var nextTheme=theme==="light"?"sombre":"clair";
+      button.setAttribute("aria-label","Activer le thème "+nextTheme);
+      button.setAttribute("title","Activer le thème "+nextTheme);
+      button.setAttribute("aria-pressed",theme==="light"?"true":"false");
+      if(save){
+        try{window.localStorage.setItem("portfolio-theme",theme)}
+        catch(error){console.warn("Le choix du thème ne peut pas être mémorisé dans ce navigateur.",error)}
+      }
+      d.dispatchEvent(new CustomEvent("themechange",{detail:{theme:theme}}));
+    }
+    try{
+      if(window.localStorage.getItem("portfolio-theme")==="light")root.setAttribute("data-theme","light");
+    }catch(error){console.warn("Le thème enregistré ne peut pas être lu dans ce navigateur.",error)}
+    setTheme(root.getAttribute("data-theme")==="light"?"light":"dark",false);
+    button.addEventListener("click",function(){
+      setTheme(root.getAttribute("data-theme")==="light"?"dark":"light",true);
+    });
+  })();
+
   /* ---------- Menu mobile ---------- */
   function setMenu(o){b.classList.toggle("menu-open",o);burger.setAttribute("aria-expanded",o);burger.setAttribute("aria-label",o?"Fermer le menu":"Ouvrir le menu")}
   burger.addEventListener("click",function(){setMenu(!b.classList.contains("menu-open"))});
@@ -66,6 +91,7 @@
     var hero=d.querySelector(".hero"), cv=d.querySelector(".hero-canvas");
     if(!cv||!cv.getContext)return;
     var ctx=cv.getContext("2d"), w=0, h=0, dpr=1, running=true, t0=performance.now();
+    var canvasBg=getComputedStyle(d.documentElement).getPropertyValue("--bg").trim()||"#0d0d0d";
     var blobs=[
       {c:"255,40,40",  r:.55, sx:.00021, sy:.00017, px:0,   py:1.2, ax:.30, ay:.25, a:.55},
       {c:"140,20,60",  r:.50, sx:.00016, sy:.00023, px:2,   py:.4,  ax:.35, ay:.30, a:.50},
@@ -83,7 +109,7 @@
     function draw(now){
       var t=now-t0;
       ctx.globalCompositeOperation="source-over";
-      ctx.fillStyle="#0d0d0d"; ctx.fillRect(0,0,w,h);
+      ctx.fillStyle=canvasBg; ctx.fillRect(0,0,w,h);
       ctx.globalCompositeOperation="lighter";
       var base=Math.max(w,h);
       for(var i=0;i<blobs.length;i++){
@@ -111,6 +137,10 @@
     }
     function loop(now){ if(running){draw(now);} requestAnimationFrame(loop); }
     window.addEventListener("resize",resize);
+    d.addEventListener("themechange",function(){
+      canvasBg=getComputedStyle(d.documentElement).getPropertyValue("--bg").trim()||"#0d0d0d";
+      draw(performance.now());
+    });
     if("IntersectionObserver" in window){
       new IntersectionObserver(function(es){running=es[0].isIntersecting&&!d.hidden}).observe(hero);
     }
