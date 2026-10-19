@@ -213,3 +213,61 @@
   window.addEventListener("resize",function(){if(window.innerWidth>900)setMenu(false)});
 
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggleBtn = document.getElementById('theme-toggle');
+
+  if (!themeToggleBtn) return;
+
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem('theme');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {
+    }
+  }
+
+  const savedTheme = getSavedTheme();
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+
+  function toggleTheme(e) {
+    if (e) e.preventDefault();
+    document.body.classList.toggle('dark-mode');
+
+    const isDark = document.body.classList.contains('dark-mode');
+    saveTheme(isDark ? 'dark' : 'light');
+  }
+
+  themeToggleBtn.addEventListener('click', toggleTheme);
+});

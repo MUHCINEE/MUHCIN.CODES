@@ -297,3 +297,32 @@ h1:hover,h2:hover,h3:hover,p:hover,li:hover,label:hover,span:hover,b:hover,
 .skill:hover .skill-icon,.skill:hover .skill-icon:hover{color:#111!important}
 .skill-group{transition:transform .35s,border-color .35s,background-color .35s}
 .skill-group:hover{background-color:var(--card-hover)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#theme-toggle {
+  cursor: pointer !important;
+  z-index: 99999 !important; 
+  pointer-events: auto !important;
+  position: relative; 
+  -webkit-tap-highlight-color: transparent; 
+}
+
+#theme-toggle * {
+  pointer-events: none !important;
+}
