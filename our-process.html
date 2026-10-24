@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Notre Processus | Muhcin.dev</title>
-  <meta name="description" content="Un processus stratégique et étape par étape pour créer des sites web performants qui convertissent les visiteurs en clients.">
+  <title>Our Process | Muhcin.dev</title>
+  <meta name="description" content="A strategic, step-by-step process for building high-performing websites that turn visitors into clients.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Big+Shoulders+Display:wght@700;900&display=swap">
@@ -32,12 +32,31 @@
     .process-page {
       position: relative;
       overflow: hidden;
+      text-align: left;
     }
 
     .process-page .page-shell {
       max-width: 1220px;
       margin: 0 auto;
       padding-inline: var(--pad);
+    }
+
+    /* Desktop alignment: all body copy stays left aligned for a clean, professional look */
+    .process-page p,
+    .process-page li,
+    .process-page h1,
+    .process-page h2,
+    .process-page h3,
+    .process-page h4,
+    .process-page .lead,
+    .process-page .section-head p,
+    .process-page .phase-copy p,
+    .process-page .phase-content p,
+    .process-page .deliverables li,
+    .process-page .why-we-do-it p,
+    .process-page .cta-box p,
+    .process-page .stat-card span {
+      text-align: left;
     }
 
     .process-hero {
@@ -442,6 +461,52 @@
       color: var(--fg);
     }
 
+    /* Mobile alignment: keep paragraph-heavy sections centered on tablet/mobile for readability */
+    @media (max-width: 991px) {
+      .process-page p,
+      .process-page li,
+      .process-page h1,
+      .process-page h2,
+      .process-page h3,
+      .process-page h4,
+      .process-page .lead,
+      .process-page .section-head p,
+      .process-page .phase-copy p,
+      .process-page .phase-content p,
+      .process-page .deliverables li,
+      .process-page .why-we-do-it p,
+      .process-page .cta-box p,
+      .process-page .stat-card span {
+        text-align: center;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .process-hero {
+        text-align: center;
+      }
+
+      .process-actions,
+      .cta-actions,
+      .pill-list {
+        justify-content: center;
+      }
+
+      .phase-content,
+      .why-we-do-it,
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-actions {
+        justify-content: center;
+      }
+    }
+
     @media (max-width: 900px) {
       .section-head {
         flex-direction: column;
@@ -513,16 +578,16 @@
 
   <header class="header">
     <a class="logo" href="index.html">Muhcin<span>.dev</span></a>
-    <nav id="nav" aria-label="Navigation principale">
-      <a href="index.html#top">Accueil</a>
-      <a href="index.html#about">À propos</a>
-      <a href="index.html#works">Réalisations</a>
-      <a href="index.html#case-studies">Études de cas</a>
+    <nav id="nav" aria-label="Main navigation">
+      <a href="index.html#top">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#works">Work</a>
+      <a href="index.html#case-studies">Case Studies</a>
       <a href="index.html#services">Services</a>
-      <a href="our-process.html" aria-current="page">Notre processus</a>
+      <a href="our-process.html" aria-current="page">Process</a>
       <a href="index.html#contact" class="nav-cta">Contact</a>
     </nav>
-    <button class="theme-toggle" type="button" aria-label="Activer le thème sombre" title="Activer le thème sombre">
+    <button class="theme-toggle" type="button" aria-label="Activate light/dark theme" title="Activate light/dark theme">
       <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="4"></circle>
         <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
@@ -537,27 +602,27 @@
   <main class="process-page">
     <section class="process-hero">
       <div class="page-shell process-hero-inner">
-        <span class="eyebrow">Stratégie. Design. Croissance.</span>
-        <h1>Du concept aux conversions</h1>
-        <p class="lead">Nous créons des sites web avec une méthode éprouvée qui rend votre marque plus claire, votre offre plus forte et votre présence digitale plus crédible. Chaque étape sert à faire avancer votre activité — avant le code, avant le lancement, et bien après la mise en ligne.</p>
+        <span class="eyebrow">Strategy. Design. Conversion.</span>
+        <h1>From Concept to Conversions</h1>
+        <p class="lead">A successful website is not built by jumping straight into code. It is built with a clear strategy, a user-first structure, and a conversion-focused roadmap that turns attention into trust and trust into business results.</p>
 
         <div class="process-actions">
-          <a class="btn btn-outline" href="index.html#contact">Démarrer votre projet</a>
-          <a class="link" href="index.html#works">Voir nos réalisations</a>
+          <a class="btn btn-outline" href="index.html#contact">Start your project</a>
+          <a class="link" href="index.html#works">See our work</a>
         </div>
 
-        <div class="stats-grid" aria-label="Statistiques sur notre processus">
+        <div class="stats-grid" aria-label="Process performance stats">
           <div class="stat-card">
             <strong>5</strong>
-            <span>Étapes stratégiques</span>
+            <span>core phases</span>
           </div>
           <div class="stat-card">
             <strong>100%</strong>
-            <span>Pensé pour votre business</span>
+            <span>strategy-first</span>
           </div>
           <div class="stat-card">
-            <strong>Résultats</strong>
-            <span>Conçu pour convertir</span>
+            <strong>Results</strong>
+            <span>built to convert</span>
           </div>
         </div>
       </div>
@@ -565,32 +630,32 @@
 
     <section class="process-section page-shell">
       <div class="section-head">
-        <h2 class="title-xxl">Comment nous travaillons</h2>
-        <p>Un bon site web ne commence pas par du design au hasard ni par du code sans vision. Tout commence par comprendre le besoin, clarifier l’offre et concevoir un site qui aide votre audience à prendre des décisions plus facilement.</p>
+        <h2 class="title-xxl">How we build high-performing websites</h2>
+        <p>Great digital experiences do not start with code. They begin with business clarity, user understanding, and a structured plan that aligns design, messaging, and technology around your actual growth goals.</p>
       </div>
 
-      <div class="timeline" aria-label="Timeline of our process">
+      <div class="timeline" aria-label="Process workflow timeline">
         <article class="phase-card active">
           <button class="phase-header" type="button" aria-expanded="true">
             <span class="phase-badge">01</span>
             <span class="phase-copy">
               <span>
-                <h3>Découverte &amp; stratégie</h3>
-                <p>Identifier le vrai objectif et le cœur de l’activité.</p>
+                <h3>Discovery &amp; Strategy</h3>
+                <p>Business goals, audience insight, and market clarity.</p>
               </span>
               <span class="phase-toggle" aria-hidden="true">+</span>
             </span>
           </button>
           <div class="phase-panel">
             <div class="phase-content">
-              <p>Nous commençons par comprendre votre activité, votre audience, votre message de marque et le résultat précis que vous souhaitez obtenir avec votre site. C’est là que la clarté se construit — avant même le design visuel ou le développement. Nous posons les fondations stratégiques qui rendent chaque décision suivante plus efficace.</p>
+              <p>We begin by understanding the business, the target audience, the brand voice, and the practical objectives behind the project. This phase makes sure the website is designed around the right message, the right positioning, and the right conversion goals before a single design decision is made.</p>
               <div class="deliverables">
-                <h4>Livrables clés</h4>
+                <h4>Key deliverables</h4>
                 <ul>
-                  <li>Analyse concurrentielle</li>
-                  <li>Feuille de route du projet</li>
-                  <li>Architecture du site</li>
-                  <li>Persona du public cible</li>
+                  <li>Competitor research</li>
+                  <li>Business goals review</li>
+                  <li>Target audience analysis</li>
+                  <li>Project roadmap and site architecture</li>
                 </ul>
               </div>
             </div>
@@ -602,22 +667,22 @@
             <span class="phase-badge">02</span>
             <span class="phase-copy">
               <span>
-                <h3>Câblage &amp; UX</h3>
-                <p>Créer le plan avant de penser au style.</p>
+                <h3>Wireframing &amp; UX Architecture</h3>
+                <p>User flow, conversion structure, and page layout.</p>
               </span>
               <span class="phase-toggle" aria-hidden="true">+</span>
             </span>
           </button>
           <div class="phase-panel">
             <div class="phase-content">
-              <p>Une fois la stratégie validée, nous définissons le parcours utilisateur. Nous structurons les pages clés, les chemins de conversion, la navigation et les appels à l’action pour que l’expérience soit intuitive et orientée résultats — pas seulement belle à regarder. C’est la base qui rend le site plus efficace.</p>
+              <p>Once the strategy is clear, we define the user journey and page structure. We map the navigation, conversion points, and key call-to-actions so the experience feels intuitive and drives decision-making naturally instead of relying on decoration alone.</p>
               <div class="deliverables">
-                <h4>Livrables clés</h4>
+                <h4>Key deliverables</h4>
                 <ul>
-                  <li>Wireframes basse fidélité</li>
-                  <li>Plan de structure des pages</li>
-                  <li>Carte du parcours utilisateur</li>
-                  <li>Mise en page orientée conversion</li>
+                  <li>Low-fidelity wireframes</li>
+                  <li>User flow map</li>
+                  <li>Core page structure</li>
+                  <li>Conversion-focused layout plan</li>
                 </ul>
               </div>
             </div>
@@ -629,22 +694,22 @@
             <span class="phase-badge">03</span>
             <span class="phase-copy">
               <span>
-                <h3>Design visuel &amp; UI</h3>
-                <p>Transformer votre marque en une expérience premium.</p>
+                <h3>High-Fidelity UI Design</h3>
+                <p>Visual branding, dark/light aesthetics, and interactive mockups.</p>
               </span>
               <span class="phase-toggle" aria-hidden="true">+</span>
             </span>
           </button>
           <div class="phase-panel">
             <div class="phase-content">
-              <p>Nous élevons votre marque grâce à un design visuel soigné, aux animations, à la typographie, à la hiérarchie visuelle et à une interface responsive pensée pour fonctionner parfaitement sur mobile et desktop. Le résultat est une présence digitale élégante qui inspire confiance, crédibilité et qualité premium.</p>
+              <p>We turn the strategy into a premium visual identity with refined typography, layout hierarchy, motion, and modern UI patterns. The design is crafted to communicate trust, authority, and clarity while remaining responsive across desktop, tablet, and mobile experiences.</p>
               <div class="deliverables">
-                <h4>Livrables clés</h4>
+                <h4>Key deliverables</h4>
                 <ul>
-                  <li>Maquettes UI haute fidélité</li>
-                  <li>Prototypes interactifs</li>
-                  <li>Design des visuels et assets</li>
-                  <li>Adaptation dark et light mode</li>
+                  <li>High-fidelity UI mockups</li>
+                  <li>Interactive prototype</li>
+                  <li>Brand visual system</li>
+                  <li>Dark/light mode design adaptation</li>
                 </ul>
               </div>
             </div>
@@ -656,22 +721,22 @@
             <span class="phase-badge">04</span>
             <span class="phase-copy">
               <span>
-                <h3>Développement &amp; optimisation</h3>
-                <p>Créer une expérience rapide, propre et orientée conversion.</p>
+                <h3>Clean Development &amp; Optimization</h3>
+                <p>Responsive code, speed, SEO, and smart automation.</p>
               </span>
               <span class="phase-toggle" aria-hidden="true">+</span>
             </span>
           </button>
           <div class="phase-panel">
             <div class="phase-content">
-              <p>Une fois le design validé, nous le transformons en code propre, scalable et performant. Nous privilégions la vitesse, la responsive design, les bonnes bases SEO et une mise en œuvre sécurisée afin que le site soit non seulement beau, mais aussi performant dans des conditions réelles.</p>
+              <p>Once the design is approved, we translate it into clean, scalable, and fast-performing code. We prioritize responsive layouts, SEO fundamentals, performance, security, and practical integrations such as WhatsApp lead flows, lead forms, and booking functionality.</p>
               <div class="deliverables">
-                <h4>Livrables clés</h4>
+                <h4>Key deliverables</h4>
                 <ul>
-                  <li>Code moderne et propre</li>
-                  <li>Responsive multi-navigateurs</li>
-                  <li>Optimisation de vitesse</li>
-                  <li>Intégrations WhatsApp, formulaires et leads</li>
+                  <li>Clean front-end development</li>
+                  <li>Responsive cross-browser implementation</li>
+                  <li>Speed and performance optimization</li>
+                  <li>WhatsApp and form automation</li>
                 </ul>
               </div>
             </div>
@@ -683,22 +748,22 @@
             <span class="phase-badge">05</span>
             <span class="phase-copy">
               <span>
-                <h3>Lancement, tests &amp; croissance</h3>
-                <p>Vérifier que le site fonctionne réellement après le lancement.</p>
+                <h3>Launch &amp; Conversion Optimization</h3>
+                <p>QA, deployment, analytics, and handover.</p>
               </span>
               <span class="phase-toggle" aria-hidden="true">+</span>
             </span>
           </button>
           <div class="phase-panel">
             <div class="phase-content">
-              <p>Avant le lancement, nous testons chaque interaction, vérifions la stabilité technique, configurons le domaine et mettons en place les outils d’analyse. Une fois le site en ligne, nous vous guidons pour l’utiliser sereinement et nous nous assurons qu’il est prêt à générer du trafic, des leads et de la croissance.</p>
+              <p>Before launch, we run quality assurance checks, test interactions, confirm technical stability, and prepare the site for deployment. After launch, we configure analytics, validate tracking, and provide a clear handover so your team can manage and optimize the website with confidence.</p>
               <div class="deliverables">
-                <h4>Livrables clés</h4>
+                <h4>Key deliverables</h4>
                 <ul>
-                  <li>Rapport de QA testing</li>
-                  <li>Déploiement live</li>
-                  <li>Configuration analytics</li>
-                  <li>Guide de prise en main client</li>
+                  <li>QA testing report</li>
+                  <li>Live deployment</li>
+                  <li>Analytics and tracking setup</li>
+                  <li>Client walkthrough and handover guide</li>
                 </ul>
               </div>
             </div>
@@ -708,18 +773,18 @@
 
       <div class="why-we-do-it">
         <div>
-          <h3>Pourquoi cette méthode fonctionne</h3>
-          <p>Parce qu’un site web construit sans méthode mène souvent à de la confusion, un message faible et un effort perdu. Un processus stratégique permet d’aligner le design, le message et la technologie autour de vos vrais objectifs business — ce qui se traduit par plus de conversion, plus de confiance et finalement plus de clients acquis.</p>
-          <div class="pill-list" aria-label="Résultats du processus">
-            <span class="pill">Positionnement clair</span>
-            <span class="pill">UX plus forte</span>
-            <span class="pill">Plus de conversions</span>
-            <span class="pill">Plus de confiance</span>
+          <h3>Why this process works</h3>
+          <p>Building a website without a strategic process often leads to weak positioning, confusing user journeys, and wasted design effort. A disciplined flow aligns strategy, UX, branding, and code around your real business goals — which means stronger trust, better conversion, and more qualified leads.</p>
+          <div class="pill-list" aria-label="Process benefits">
+            <span class="pill">Clear positioning</span>
+            <span class="pill">Stronger UX</span>
+            <span class="pill">Higher conversions</span>
+            <span class="pill">More trust</span>
           </div>
         </div>
 
         <div>
-          <p>Chaque décision que nous prenons répond à une seule question : cela aide-t-il l’entreprise à grandir ? C’est pour cela que notre méthode n’est pas seulement esthétique, mais aussi conçue comme un vrai outil de vente pour votre entreprise.</p>
+          <p>Every decision we make is tied to one question: does this help the business grow? That is why the process is designed not only to look premium, but also to perform like a true sales asset.</p>
         </div>
       </div>
     </section>
@@ -727,12 +792,12 @@
     <section class="cta-wrap page-shell">
       <div class="cta-box">
         <div>
-          <h3>Prêt à construire avec clarté ?</h3>
-          <p>Transformons votre prochain site en un outil de croissance stratégique — un site qui n’est pas seulement premium, mais qui inspire confiance, pousse à l’action et génère de vrais résultats business.</p>
+          <h3>Ready to build with clarity?</h3>
+          <p>Let’s turn your next website into a strategic growth engine — one that looks premium, communicates clearly, and drives measurable business results.</p>
         </div>
         <div class="cta-actions">
-          <a class="btn btn-solid" href="https://wa.me/212690461515" target="_blank" rel="noopener noreferrer">Réserver un appel</a>
-          <a class="btn btn-outline-light" href="index.html#contact">Démarrer un projet</a>
+          <a class="btn btn-solid" href="https://wa.me/212690461515" target="_blank" rel="noopener noreferrer">Book a call</a>
+          <a class="btn btn-outline-light" href="index.html#contact">Start a project</a>
         </div>
       </div>
     </section>
