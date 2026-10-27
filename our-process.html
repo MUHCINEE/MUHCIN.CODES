@@ -11,556 +11,146 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logos/logo.jpeg">
   <style>
-    :root {
-      --process-panel: rgba(255, 255, 255, 0.02);
-      --process-line: rgba(255, 255, 255, 0.08);
-      --process-shadow: 0 28px 80px rgba(0, 0, 0, 0.18);
-      --red: #ff1a1a;
-    }
-
-    :root[data-theme="light"] {
-      --process-panel: rgba(17, 17, 17, 0.02);
-      --process-line: rgba(17, 17, 17, 0.08);
-      --process-shadow: 0 24px 64px rgba(28, 20, 15, 0.08);
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-    }
-
+    /* Page tokens: fall back gracefully if style.css does not define a variable */
     .process-page {
-      position: relative;
-      overflow: hidden;
-      text-align: left;
+      --ac: var(--accent, #ff1a1a);
+      --surface: var(--bg2, #111114);
+      --hair: var(--line, rgba(255,255,255,.1));
+      --soft: rgba(255,255,255,.03);
+      --txt: var(--fg, #f5f5f7);
+      --dim: var(--muted, #9b9ba6);
+      --head-font: var(--head, 'Big Shoulders Display', sans-serif);
+      --shadow: 0 24px 70px rgba(0,0,0,.28);
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --r: 20px;
+      position: relative; overflow: hidden; text-align: left;
     }
+    :root[data-theme="light"] .process-page { --soft: rgba(17,17,17,.035); --shadow: 0 22px 60px rgba(28,20,15,.10); }
+    .process-page :is(h1,h2,h3,h4,p,li,span) { text-align: left; }
+    .process-page .page-shell { max-width: 1220px; margin: 0 auto; padding-inline: var(--pad, clamp(20px, 4vw, 48px)); }
+    .process-page :is(a,button):focus-visible { outline: 2px solid var(--ac); outline-offset: 3px; }
 
-    .process-page .page-shell {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding-inline: var(--pad);
-    }
-
-    /* Desktop alignment: all body copy stays left aligned for a clean, professional look */
-    .process-page p,
-    .process-page li,
-    .process-page h1,
-    .process-page h2,
-    .process-page h3,
-    .process-page h4,
-    .process-page .lead,
-    .process-page .section-head p,
-    .process-page .phase-copy p,
-    .process-page .phase-content p,
-    .process-page .deliverables li,
-    .process-page .why-we-do-it p,
-    .process-page .cta-box p,
-    .process-page .stat-card span {
-      text-align: left;
-    }
-
+    /* Hero */
     .process-hero {
-      position: relative;
-      min-height: 680px;
-      display: flex;
-      align-items: center;
-      background: radial-gradient(ellipse at 70% 15%, rgba(255, 26, 26, 0.12), transparent 30%), var(--bg);
+      position: relative; display: flex; align-items: center; min-height: min(680px, 90svh);
+      background: radial-gradient(ellipse 60% 55% at 78% 8%, rgba(255,26,26,.14), transparent 70%), var(--bg, #0a0a0b);
+      border-bottom: 1px solid var(--hair);
     }
-
-    .process-hero-inner {
-      position: relative;
-      z-index: 1;
-      padding-top: clamp(60px, 8vw, 110px);
-      padding-bottom: clamp(60px, 8vw, 110px);
-    }
-
+    .process-hero-inner { padding-block: clamp(64px, 9vw, 120px); }
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 7px 16px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--accent);
-      background: rgba(255, 255, 255, 0.01);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px;
+      border: 1px solid var(--hair); border-radius: 999px; background: var(--soft);
+      color: var(--ac); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     }
-
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 18px rgba(255, 26, 26, 0.8);
-    }
-
-    .process-hero h1 {
-      margin-top: 28px;
-      font-size: clamp(56px, 8vw, 164px);
-      max-width: 14ch;
-      text-wrap: balance;
-    }
-
-    .process-hero .lead {
-      max-width: 730px;
-      margin-top: 22px;
-      font-size: clamp(17px, 2vw, 24px);
-      line-height: 1.7;
-      color: var(--hero-copy);
-    }
-
-    .process-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      align-items: center;
-      margin-top: 36px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 42px;
-    }
-
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ac); box-shadow: 0 0 14px var(--ac); }
+    .process-hero h1 { margin-top: 28px; max-width: 13ch; font-size: clamp(44px, 7.4vw, 112px); line-height: .94; text-wrap: balance; }
+    .process-hero .lead { max-width: 720px; margin-top: 24px; font-size: clamp(16px, 1.7vw, 21px); line-height: 1.75; color: var(--hero-copy, var(--dim)); }
+    .process-actions { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 36px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 52px; }
     .stat-card {
-      padding: 22px 20px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--bg2);
-      box-shadow: var(--process-shadow);
+      padding: 22px 22px 20px; border: 1px solid var(--hair); border-radius: 18px;
+      background: linear-gradient(160deg, var(--soft), transparent 70%), var(--surface); box-shadow: var(--shadow);
     }
+    .stat-card strong { display: block; font: 900 clamp(28px, 3.4vw, 46px)/1 var(--head-font); text-transform: uppercase; color: var(--ac); overflow-wrap: anywhere; }
+    .stat-card span { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
 
-    .stat-card strong {
-      display: block;
-      font-family: var(--head);
-      font-size: clamp(30px, 4vw, 52px);
-      font-weight: 900;
-      line-height: 1;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
+    /* Section header */
+    .process-section { padding-block: clamp(72px, 10vw, 140px); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 28px 48px; margin-bottom: 48px; }
+    .section-head h2 { max-width: 14ch; font-size: clamp(36px, 5.4vw, 84px); line-height: .94; text-wrap: balance; }
+    .section-head p { max-width: 500px; color: var(--dim); font-size: clamp(15px, 1.3vw, 17px); line-height: 1.8; }
 
-    .stat-card span {
-      display: block;
-      margin-top: 10px;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .process-section {
-      padding-block: clamp(70px, 11vw, 150px);
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 38px;
-    }
-
-    .section-head h2 {
-      max-width: 12ch;
-      font-size: clamp(46px, 7vw, 118px);
-      line-height: 0.9;
-    }
-
-    .section-head p {
-      max-width: 520px;
-      color: var(--muted);
-      font-size: clamp(15px, 1.4vw, 18px);
-      line-height: 1.75;
-    }
-
-    .timeline {
-      position: relative;
-      margin-top: 18px;
-      display: grid;
-      gap: 18px;
-    }
-
+    /* Timeline */
+    .timeline { --x: 28px; --pl: 76px; position: relative; display: grid; gap: 16px; }
     .timeline::before {
-      content: "";
-      position: absolute;
-      left: 36px;
-      top: 28px;
-      bottom: 28px;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), rgba(255, 255, 255, 0.1));
+      content: ""; position: absolute; left: var(--x); top: 50px; bottom: 50px; width: 1px;
+      background: linear-gradient(to bottom, var(--ac), var(--hair) 70%);
     }
-
-    .phase-card {
-      position: relative;
-      padding-left: 96px;
-    }
-
+    .phase-card { position: relative; padding-left: var(--pl); }
     .phase-card::before {
-      content: "";
-      position: absolute;
-      left: 18px;
-      top: 28px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--bg2);
-      border: 1px solid var(--line);
-      box-shadow: 0 0 0 10px var(--bg);
-      z-index: 1;
+      content: ""; position: absolute; left: calc(var(--x) - 7px); top: 44px; width: 15px; height: 15px; z-index: 1;
+      border-radius: 50%; background: var(--surface); border: 1px solid var(--hair);
+      box-shadow: 0 0 0 7px var(--bg, #0a0a0b); transition: background .3s, border-color .3s, box-shadow .3s;
     }
-
-    .phase-card.active::before {
-      background: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 0 0 10px var(--bg), 0 0 25px rgba(255, 26, 26, 0.35);
-    }
-
-    .phase-card.active .phase-panel {
-      max-height: 420px;
-      opacity: 1;
-      padding-top: 18px;
-      margin-top: 18px;
-      pointer-events: auto;
-    }
-
-    .phase-card.active .phase-toggle {
-      transform: rotate(45deg);
-      color: var(--accent);
-    }
-
+    .phase-card.active::before { background: var(--ac); border-color: var(--ac); box-shadow: 0 0 0 7px var(--bg, #0a0a0b), 0 0 22px var(--ac); }
+    .phase-title { margin: 0; font: inherit; }
     .phase-header {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      width: 100%;
-      padding: 20px 26px 20px 24px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--process-panel), transparent 70%), var(--bg2);
-      color: var(--fg);
-      text-align: left;
-      cursor: pointer;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      display: flex; align-items: center; gap: 18px; width: 100%; padding: 20px 24px 20px 20px;
+      border: 1px solid var(--hair); border-radius: var(--r); color: var(--txt); font: inherit; text-align: left; cursor: pointer;
+      background: linear-gradient(135deg, var(--soft), transparent 70%), var(--surface);
+      transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
     }
-
-    .phase-header:hover {
-      transform: translateY(-2px);
-      border-color: var(--hover-border);
-      box-shadow: var(--process-shadow);
-    }
-
+    .phase-header:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--ac) 45%, transparent); box-shadow: var(--shadow); }
+    .phase-card.active .phase-header { border-color: color-mix(in srgb, var(--ac) 40%, transparent); }
     .phase-badge {
-      display: grid;
-      place-items: center;
-      flex: none;
-      width: 58px;
-      height: 58px;
-      border-radius: 16px;
-      background: rgba(255, 26, 26, 0.08);
-      border: 1px solid rgba(255, 26, 26, 0.26);
-      color: var(--accent);
-      font: 900 20px/1 var(--head);
-      text-transform: uppercase;
+      display: grid; place-items: center; flex: none; width: 58px; height: 58px; border-radius: 16px;
+      background: color-mix(in srgb, var(--ac) 10%, transparent); border: 1px solid color-mix(in srgb, var(--ac) 30%, transparent);
+      color: var(--ac); font: 900 20px/1 var(--head-font); font-variant-numeric: tabular-nums;
     }
-
-    .phase-copy {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      min-width: 0;
-    }
-
-    .phase-copy h3 {
-      font: 900 clamp(22px, 2.5vw, 38px)/1 var(--head);
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      max-width: 14ch;
-    }
-
-    .phase-copy p {
-      margin-top: 8px;
-      max-width: 46ch;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
+    .phase-copy { display: block; flex: 1; min-width: 0; }
+    .phase-name { display: block; max-width: 22ch; font: 900 clamp(21px, 2.3vw, 34px)/1.02 var(--head-font); letter-spacing: -.01em; text-transform: uppercase; text-wrap: balance; }
+    .phase-desc { display: block; margin-top: 8px; max-width: 52ch; color: var(--dim); font: 400 14px/1.65 'Poppins', sans-serif; }
     .phase-toggle {
-      display: grid;
-      place-items: center;
-      flex: none;
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      font-size: 30px;
-      line-height: 1;
-      color: var(--muted);
-      transition: transform 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+      position: relative; flex: none; width: 38px; height: 38px; border: 1px solid var(--hair); border-radius: 50%;
+      color: var(--dim); transition: transform .35s var(--ease), color .3s, border-color .3s;
     }
+    .phase-toggle::before, .phase-toggle::after { content: ""; position: absolute; inset: 50% auto auto 50%; width: 12px; height: 1.5px; background: currentColor; transform: translate(-50%,-50%); }
+    .phase-toggle::after { transform: translate(-50%,-50%) rotate(90deg); }
+    .phase-card.active .phase-toggle { transform: rotate(45deg); color: var(--ac); border-color: var(--ac); }
 
+    /* Accordion panel: animates to its real height, never clips */
     .phase-panel {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      padding-top: 0;
-      margin-left: 0;
-      transition: max-height 0.38s ease, opacity 0.3s ease, margin 0.3s ease, padding 0.3s ease;
-      pointer-events: none;
+      display: grid; grid-template-rows: 0fr; visibility: hidden;
+      transition: grid-template-rows .5s var(--ease), visibility 0s .5s;
     }
+    .phase-card.active .phase-panel { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+    .phase-inner { min-height: 0; overflow: hidden; }
+    .phase-content { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(20px, 3vw, 32px); padding: 24px 4px 8px; }
+    .phase-content p { max-width: 60ch; color: var(--dim); font-size: 15px; line-height: 1.85; }
+    .deliverables { padding: 20px 22px; border: 1px solid var(--hair); border-radius: 16px; background: var(--soft); }
+    .deliverables h4 { margin-bottom: 14px; color: var(--ac); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .deliverables ul { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+    .deliverables li { position: relative; padding-left: 18px; color: var(--txt); font-size: 13px; line-height: 1.7; }
+    .deliverables li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--ac); }
 
-    .phase-content {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: clamp(20px, 3vw, 28px);
-      padding: 24px 18px 8px 0;
+    /* Why + CTA */
+    .why-we-do-it, .cta-box {
+      display: grid; align-items: center; border: 1px solid var(--hair); border-radius: 24px;
+      background: linear-gradient(140deg, color-mix(in srgb, var(--ac) 9%, transparent), transparent 55%), var(--surface);
     }
+    .why-we-do-it { grid-template-columns: 1.2fr 1fr; gap: clamp(24px, 4vw, 56px); margin-top: clamp(40px, 6vw, 80px); padding: clamp(26px, 4vw, 48px); }
+    .why-we-do-it h3 { margin-bottom: 18px; font: 900 clamp(30px, 3.8vw, 54px)/.97 var(--head-font); text-transform: uppercase; }
+    .why-we-do-it p { color: var(--dim); font-size: 15px; line-height: 1.85; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .pill { padding: 9px 14px; border: 1px solid var(--hair); border-radius: 999px; background: var(--soft); color: var(--dim); font-size: 11px; letter-spacing: .09em; text-transform: uppercase; }
+    .cta-wrap { padding-block: 0 clamp(72px, 10vw, 130px); }
+    .cta-box { grid-template-columns: 1.2fr auto; gap: 28px; padding: clamp(28px, 4vw, 56px); box-shadow: var(--shadow); }
+    .cta-box h3 { max-width: 12ch; font: 900 clamp(34px, 4.6vw, 70px)/.98 var(--head-font); text-transform: uppercase; text-wrap: balance; }
+    .cta-box p { max-width: 56ch; margin-top: 16px; color: var(--dim); font-size: 15px; line-height: 1.85; }
+    .cta-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+    .btn-outline-light { border: 1px solid var(--txt); color: var(--txt); }
 
-    .phase-content p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-      max-width: 60ch;
-    }
-
-    .deliverables {
-      padding: 18px 20px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .deliverables h4 {
-      margin-bottom: 12px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .deliverables ul {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-    }
-
-    .deliverables li {
-      position: relative;
-      padding-left: 16px;
-      color: var(--fg);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .deliverables li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 10px;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .why-we-do-it {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: clamp(24px, 4vw, 52px);
-      align-items: center;
-      margin-top: clamp(36px, 6vw, 72px);
-      padding: clamp(24px, 4vw, 42px);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: linear-gradient(145deg, rgba(255, 26, 26, 0.08), transparent 50%), var(--bg2);
-    }
-
-    .why-we-do-it h3 {
-      margin-bottom: 18px;
-      font-size: clamp(30px, 4vw, 56px);
-      line-height: 0.95;
-      font-family: var(--head);
-      text-transform: uppercase;
-    }
-
-    .why-we-do-it p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: flex-start;
-      margin-top: 22px;
-    }
-
-    .pill {
-      padding: 9px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.015);
-    }
-
-    .cta-wrap {
-      padding-block: clamp(70px, 11vw, 130px);
-    }
-
-    .cta-box {
-      display: grid;
-      grid-template-columns: 1.2fr auto;
-      align-items: center;
-      gap: 24px;
-      padding: clamp(26px, 4vw, 54px);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(255, 26, 26, 0.08), transparent 55%), var(--bg2);
-      box-shadow: var(--process-shadow);
-    }
-
-    .cta-box h3 {
-      font-family: var(--head);
-      font-size: clamp(36px, 5vw, 78px);
-      text-transform: uppercase;
-      line-height: 0.96;
-      max-width: 10ch;
-    }
-
-    .cta-box p {
-      margin-top: 14px;
-      color: var(--muted);
-      max-width: 56ch;
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .cta-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 12px;
-    }
-
-    .btn-outline-light {
-      border: 1px solid var(--fg);
-      color: var(--fg);
-    }
-
-    /* Mobile alignment: keep paragraph-heavy sections centered on tablet/mobile for readability */
     @media (max-width: 991px) {
-      .process-page p,
-      .process-page li,
-      .process-page h1,
-      .process-page h2,
-      .process-page h3,
-      .process-page h4,
-      .process-page .lead,
-      .process-page .section-head p,
-      .process-page .phase-copy p,
-      .process-page .phase-content p,
-      .process-page .deliverables li,
-      .process-page .why-we-do-it p,
-      .process-page .cta-box p,
-      .process-page .stat-card span {
-        text-align: center;
-      }
-
-      .section-head {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .process-hero {
-        text-align: center;
-      }
-
-      .process-actions,
-      .cta-actions,
-      .pill-list {
-        justify-content: center;
-      }
-
-      .phase-content,
-      .why-we-do-it,
-      .cta-box {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-actions {
-        justify-content: center;
-      }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .why-we-do-it, .cta-box { grid-template-columns: 1fr; }
+      .cta-actions { justify-content: flex-start; }
     }
-
-    @media (max-width: 900px) {
-      .section-head {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .phase-content,
-      .why-we-do-it,
-      .cta-box {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-actions {
-        justify-content: flex-start;
-      }
+    @media (max-width: 720px) {
+      .stats-grid, .phase-content { grid-template-columns: 1fr; }
+      .timeline { --x: 12px; --pl: 38px; }
+      .timeline::before { top: 40px; bottom: 40px; }
+      .phase-card::before { top: 36px; }
+      .phase-header { align-items: flex-start; padding: 16px 14px; gap: 14px; }
+      .phase-badge { width: 46px; height: 46px; font-size: 17px; border-radius: 13px; }
+      .phase-toggle { width: 32px; height: 32px; }
+      .process-hero h1, .section-head h2, .phase-name, .cta-box h3 { max-width: none; }
     }
-
-    @media (max-width: 680px) {
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .phase-card {
-        padding-left: 40px;
-      }
-
-      .timeline::before {
-        left: 15px;
-      }
-
-      .phase-card::before {
-        left: 0;
-        top: 22px;
-      }
-
-      .phase-header {
-        align-items: flex-start;
-        padding: 18px 16px;
-      }
-
-      .phase-copy {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .phase-badge {
-        width: 48px;
-        height: 48px;
-        font-size: 18px;
-      }
-
-      .process-hero {
-        min-height: 560px;
-      }
+    @media (max-width: 520px) {
+      .process-actions, .cta-actions { flex-direction: column; align-items: stretch; }
+      .process-actions a, .cta-actions a { width: 100%; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .process-page *, .process-page *::before { transition: none !important; }
     }
   </style>
 </head>
@@ -587,13 +177,8 @@
       <a href="index.html#contact" class="nav-cta">Contact</a>
     </nav>
     <button class="theme-toggle" type="button" aria-label="Activer le thème clair/sombre" title="Activer le thème clair/sombre">
-      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="4"></circle>
-        <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
-      </svg>
-      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z"></path>
-      </svg>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z"></path></svg>
     </button>
     <button class="burger" aria-controls="nav" aria-expanded="false" aria-label="Ouvrir le menu"><span></span></button>
   </header>
@@ -604,25 +189,14 @@
         <span class="eyebrow">Stratégie. Design. Conversion.</span>
         <h1>Du concept à la conversion</h1>
         <p class="lead">Un site web performant ne se crée pas en codant immédiatement. Il repose sur une stratégie claire, une structure centrée sur l'utilisateur et une feuille de route orientée conversion qui transforme l'attention en confiance, et la confiance en résultats commerciaux.</p>
-
         <div class="process-actions">
           <a class="btn btn-outline" href="index.html#contact">Lancer votre projet</a>
           <a class="link" href="index.html#works">Voir nos réalisations</a>
         </div>
-
         <div class="stats-grid" aria-label="Statistiques du processus de conception">
-          <div class="stat-card">
-            <strong>5</strong>
-            <span>phases clés</span>
-          </div>
-          <div class="stat-card">
-            <strong>100%</strong>
-            <span>axé stratégie</span>
-          </div>
-          <div class="stat-card">
-            <strong>Résultats</strong>
-            <span>conçus pour convertir</span>
-          </div>
+          <div class="stat-card"><strong>5</strong><span>phases clés</span></div>
+          <div class="stat-card"><strong>100%</strong><span>axé stratégie</span></div>
+          <div class="stat-card"><strong>Résultats</strong><span>conçus pour convertir</span></div>
         </div>
       </div>
     </section>
@@ -635,138 +209,73 @@
 
       <div class="timeline" aria-label="Chronologie du processus de travail">
         <article class="phase-card active">
-          <button class="phase-header" type="button" aria-expanded="true">
+          <h3 class="phase-title"><button class="phase-header" type="button" aria-expanded="true" aria-controls="phase-1">
             <span class="phase-badge">01</span>
-            <span class="phase-copy">
-              <span>
-                <h3>Découverte &amp; Stratégie</h3>
-                <p>Objectifs commerciaux, analyse de l'audience et clarté du marché.</p>
-              </span>
-              <span class="phase-toggle" aria-hidden="true">+</span>
-            </span>
-          </button>
-          <div class="phase-panel">
-            <div class="phase-content">
-              <p>Nous commençons par comprendre l'entreprise, l'audience cible, la voix de la marque et les objectifs pratiques derrière le projet. Cette phase s'assure que le site est conçu autour du bon message, du bon positionnement et des bons objectifs de conversion avant qu'une seule décision de design ne soit prise.</p>
-              <div class="deliverables">
-                <h4>Livrables clés</h4>
-                <ul>
-                  <li>Analyse concurrentielle</li>
-                  <li>Revue des objectifs business</li>
-                  <li>Analyse de l'audience cible</li>
-                  <li>Feuille de route du projet et architecture du site</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            <span class="phase-copy"><span class="phase-name">Découverte &amp; Stratégie</span><span class="phase-desc">Objectifs commerciaux, analyse de l'audience et clarté du marché.</span></span>
+            <span class="phase-toggle" aria-hidden="true"></span>
+          </button></h3>
+          <div class="phase-panel" id="phase-1"><div class="phase-inner"><div class="phase-content">
+            <p>Nous commençons par comprendre l'entreprise, l'audience cible, la voix de la marque et les objectifs pratiques derrière le projet. Cette phase s'assure que le site est conçu autour du bon message, du bon positionnement et des bons objectifs de conversion avant qu'une seule décision de design ne soit prise.</p>
+            <div class="deliverables"><h4>Livrables clés</h4><ul>
+              <li>Analyse concurrentielle</li><li>Revue des objectifs business</li><li>Analyse de l'audience cible</li><li>Feuille de route du projet et architecture du site</li>
+            </ul></div>
+          </div></div></div>
         </article>
 
         <article class="phase-card">
-          <button class="phase-header" type="button" aria-expanded="false">
+          <h3 class="phase-title"><button class="phase-header" type="button" aria-expanded="false" aria-controls="phase-2">
             <span class="phase-badge">02</span>
-            <span class="phase-copy">
-              <span>
-                <h3>Wireframing &amp; Architecture UX</h3>
-                <p>Parcours utilisateur, structure de conversion et mise en page.</p>
-              </span>
-              <span class="phase-toggle" aria-hidden="true">+</span>
-            </span>
-          </button>
-          <div class="phase-panel">
-            <div class="phase-content">
-              <p>Une fois la stratégie clarifiée, nous définissons le parcours utilisateur et la structure des pages. Nous cartographions la navigation, les points de conversion et les appels à l'action clés afin de rendre l'expérience intuitive et de susciter naturellement la prise de décision, plutôt que de reposer sur de la simple décoration.</p>
-              <div class="deliverables">
-                <h4>Livrables clés</h4>
-                <ul>
-                  <li>Wireframes basse fidélité</li>
-                  <li>Cartographie du parcours utilisateur</li>
-                  <li>Structure essentielle des pages</li>
-                  <li>Plan de mise en page axé sur la conversion</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            <span class="phase-copy"><span class="phase-name">Wireframing &amp; Architecture UX</span><span class="phase-desc">Parcours utilisateur, structure de conversion et mise en page.</span></span>
+            <span class="phase-toggle" aria-hidden="true"></span>
+          </button></h3>
+          <div class="phase-panel" id="phase-2"><div class="phase-inner"><div class="phase-content">
+            <p>Une fois la stratégie clarifiée, nous définissons le parcours utilisateur et la structure des pages. Nous cartographions la navigation, les points de conversion et les appels à l'action clés afin de rendre l'expérience intuitive et de susciter naturellement la prise de décision, plutôt que de reposer sur de la simple décoration.</p>
+            <div class="deliverables"><h4>Livrables clés</h4><ul>
+              <li>Wireframes basse fidélité</li><li>Cartographie du parcours utilisateur</li><li>Structure essentielle des pages</li><li>Plan de mise en page axé sur la conversion</li>
+            </ul></div>
+          </div></div></div>
         </article>
 
         <article class="phase-card">
-          <button class="phase-header" type="button" aria-expanded="false">
+          <h3 class="phase-title"><button class="phase-header" type="button" aria-expanded="false" aria-controls="phase-3">
             <span class="phase-badge">03</span>
-            <span class="phase-copy">
-              <span>
-                <h3>Design UI Haute Fidélité</h3>
-                <p>Identité visuelle, esthétique sombre/claire et maquettes interactives.</p>
-              </span>
-              <span class="phase-toggle" aria-hidden="true">+</span>
-            </span>
-          </button>
-          <div class="phase-panel">
-            <div class="phase-content">
-              <p>Nous transformons la stratégie en une identité visuelle haut de gamme grâce à une typographie soignée, une hiérarchie claire, des animations fluides et des composants UI modernes. Le design est conçu pour inspirer confiance et clarté, tout en restant parfaitement adaptatif sur ordinateur, tablette et mobile.</p>
-              <div class="deliverables">
-                <h4>Livrables clés</h4>
-                <ul>
-                  <li>Maquettes UI haute fidélité</li>
-                  <li>Prototype interactif</li>
-                  <li>Système visuel de marque</li>
-                  <li>Adaptation du design en mode sombre/clair</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            <span class="phase-copy"><span class="phase-name">Design UI Haute Fidélité</span><span class="phase-desc">Identité visuelle, esthétique sombre/claire et maquettes interactives.</span></span>
+            <span class="phase-toggle" aria-hidden="true"></span>
+          </button></h3>
+          <div class="phase-panel" id="phase-3"><div class="phase-inner"><div class="phase-content">
+            <p>Nous transformons la stratégie en une identité visuelle haut de gamme grâce à une typographie soignée, une hiérarchie claire, des animations fluides et des composants UI modernes. Le design est conçu pour inspirer confiance et clarté, tout en restant parfaitement adaptatif sur ordinateur, tablette et mobile.</p>
+            <div class="deliverables"><h4>Livrables clés</h4><ul>
+              <li>Maquettes UI haute fidélité</li><li>Prototype interactif</li><li>Système visuel de marque</li><li>Adaptation du design en mode sombre/clair</li>
+            </ul></div>
+          </div></div></div>
         </article>
 
         <article class="phase-card">
-          <button class="phase-header" type="button" aria-expanded="false">
+          <h3 class="phase-title"><button class="phase-header" type="button" aria-expanded="false" aria-controls="phase-4">
             <span class="phase-badge">04</span>
-            <span class="phase-copy">
-              <span>
-                <h3>Développement Propre &amp; Optimisation</h3>
-                <p>Code responsive, rapidité, référencement SEO et automatisation intelligente.</p>
-              </span>
-              <span class="phase-toggle" aria-hidden="true">+</span>
-            </span>
-          </button>
-          <div class="phase-panel">
-            <div class="phase-content">
-              <p>Une fois le design validé, nous le traduisons en un code propre, évolutif et ultra-rapide. Nous accordons la priorité aux affichages adaptatifs, au référencement naturel (SEO), à la vitesse, à la sécurité et à l'intégration d'outils pratiques comme la redirection des leads vers WhatsApp et les formulaires de réservation.</p>
-              <div class="deliverables">
-                <h4>Livrables clés</h4>
-                <ul>
-                  <li>Développement front-end propre</li>
-                  <li>Compatibilité multi-navigateurs et mobile</li>
-                  <li>Optimisation de la vitesse et des performances</li>
-                  <li>Automatisation des formulaires et de WhatsApp</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            <span class="phase-copy"><span class="phase-name">Développement Propre &amp; Optimisation</span><span class="phase-desc">Code responsive, rapidité, référencement SEO et automatisation intelligente.</span></span>
+            <span class="phase-toggle" aria-hidden="true"></span>
+          </button></h3>
+          <div class="phase-panel" id="phase-4"><div class="phase-inner"><div class="phase-content">
+            <p>Une fois le design validé, nous le traduisons en un code propre, évolutif et ultra-rapide. Nous accordons la priorité aux affichages adaptatifs, au référencement naturel (SEO), à la vitesse, à la sécurité et à l'intégration d'outils pratiques comme la redirection des leads vers WhatsApp et les formulaires de réservation.</p>
+            <div class="deliverables"><h4>Livrables clés</h4><ul>
+              <li>Développement front-end propre</li><li>Compatibilité multi-navigateurs et mobile</li><li>Optimisation de la vitesse et des performances</li><li>Automatisation des formulaires et de WhatsApp</li>
+            </ul></div>
+          </div></div></div>
         </article>
 
         <article class="phase-card">
-          <button class="phase-header" type="button" aria-expanded="false">
+          <h3 class="phase-title"><button class="phase-header" type="button" aria-expanded="false" aria-controls="phase-5">
             <span class="phase-badge">05</span>
-            <span class="phase-copy">
-              <span>
-                <h3>Lancement &amp; Optimisation de la Conversion</h3>
-                <p>Assurance qualité, déploiement, outils d'analyse et transmission.</p>
-              </span>
-              <span class="phase-toggle" aria-hidden="true">+</span>
-            </span>
-          </button>
-          <div class="phase-panel">
-            <div class="phase-content">
-              <p>Avant la mise en ligne, nous effectuons des tests de qualité approfondis, vérifions toutes les interactions, assurons la stabilité technique et préparons le site au déploiement. Après le lancement, nous configurons les outils d'analyse, validons le suivi des conversions et assurons une transmission claire pour que vous puissiez gérer le site en toute autonomie.</p>
-              <div class="deliverables">
-                <h4>Livrables clés</h4>
-                <ul>
-                  <li>Rapport de tests d'assurance qualité (QA)</li>
-                  <li>Mise en ligne &amp; déploiement</li>
-                  <li>Configuration du suivi analytique</li>
-                  <li>Guide de prise en main et formation client</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            <span class="phase-copy"><span class="phase-name">Lancement &amp; Optimisation de la Conversion</span><span class="phase-desc">Assurance qualité, déploiement, outils d'analyse et transmission.</span></span>
+            <span class="phase-toggle" aria-hidden="true"></span>
+          </button></h3>
+          <div class="phase-panel" id="phase-5"><div class="phase-inner"><div class="phase-content">
+            <p>Avant la mise en ligne, nous effectuons des tests de qualité approfondis, vérifions toutes les interactions, assurons la stabilité technique et préparons le site au déploiement. Après le lancement, nous configurons les outils d'analyse, validons le suivi des conversions et assurons une transmission claire pour que vous puissiez gérer le site en toute autonomie.</p>
+            <div class="deliverables"><h4>Livrables clés</h4><ul>
+              <li>Rapport de tests d'assurance qualité (QA)</li><li>Mise en ligne &amp; déploiement</li><li>Configuration du suivi analytique</li><li>Guide de prise en main et formation client</li>
+            </ul></div>
+          </div></div></div>
         </article>
       </div>
 
@@ -775,13 +284,9 @@
           <h3>Pourquoi ce processus fonctionne</h3>
           <p>Créer un site web sans méthode stratégique mène souvent à un positionnement flou, une expérience utilisateur confuse et un travail de design gâché. Un processus rigoureux aligne la stratégie, l'expérience utilisateur, l'image de marque et le code sur vos objectifs réels — ce qui garantit une meilleure crédibilité, un meilleur taux de conversion et des prospects plus qualifiés.</p>
           <div class="pill-list" aria-label="Avantages de la méthode">
-            <span class="pill">Positionnement clair</span>
-            <span class="pill">Expérience UX renforcée</span>
-            <span class="pill">Conversions élevées</span>
-            <span class="pill">Confiance accrue</span>
+            <span class="pill">Positionnement clair</span><span class="pill">Expérience UX renforcée</span><span class="pill">Conversions élevées</span><span class="pill">Confiance accrue</span>
           </div>
         </div>
-
         <div>
           <p>Chaque décision prise répond à une seule question : cela aide-t-il votre entreprise à se développer ? C'est pourquoi notre méthode est pensée non seulement pour offrir un rendu élégant, mais aussi pour agir comme un véritable levier de croissance commercial.</p>
         </div>
@@ -817,27 +322,23 @@
   <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const phaseCards = document.querySelectorAll('.phase-card');
-      const phaseButtons = document.querySelectorAll('.phase-header');
+      var cards = document.querySelectorAll('.phase-card');
 
-      phaseButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          const card = button.closest('.phase-card');
-          const isActive = card.classList.contains('active');
-
-          phaseCards.forEach(function (item) {
-            item.classList.remove('active');
-            item.querySelector('.phase-header').setAttribute('aria-expanded', 'false');
+      cards.forEach(function (card) {
+        card.querySelector('.phase-header').addEventListener('click', function () {
+          var open = card.classList.contains('active');
+          cards.forEach(function (c) {
+            c.classList.remove('active');
+            c.querySelector('.phase-header').setAttribute('aria-expanded', 'false');
           });
-
-          if (!isActive) {
+          if (!open) {
             card.classList.add('active');
-            button.setAttribute('aria-expanded', 'true');
+            this.setAttribute('aria-expanded', 'true');
           }
         });
       });
 
-      const year = document.getElementById('year');
+      var year = document.getElementById('year');
       if (year) year.textContent = new Date().getFullYear();
     });
   </script>
