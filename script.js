@@ -193,6 +193,8 @@
       ,"Réserver un appel":["Book a call","احجز مكالمة"]
       ,"Lancer un projet":["Start a project","ابدأ مشروعًا"]
       ,"Liens réseaux sociaux":["Social media links","روابط التواصل الاجتماعي"]
+      ,"Stratégie digitale — Création de sites web — Design de marque — Stratégie digitale — Création de sites web — Design de marque —":["Digital strategy — Website design — Brand design — Digital strategy — Website design — Brand design —","استراتيجية رقمية — تصميم المواقع الإلكترونية — تصميم العلامات التجارية — استراتيجية رقمية — تصميم المواقع الإلكترونية — تصميم العلامات التجارية —"]
+      ,"Création de sites web — Design de marque — Stratégie digitale — Création de sites web — Design de marque — Stratégie digitale —":["Website design — Brand design — Digital strategy — Website design — Brand design — Digital strategy —","تصميم المواقع الإلكترونية — تصميم العلامات التجارية — استراتيجية رقمية — تصميم المواقع الإلكترونية — تصميم العلامات التجارية — استراتيجية رقمية —"]
     };
 
     var textNodes=[];
