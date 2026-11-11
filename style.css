@@ -217,6 +217,12 @@ h1{font-size:clamp(64px,13vw,210px)}
 :root[lang="ar"] .process-page .deliverables li{padding-right:18px;padding-left:0}
 :root[lang="ar"] .process-page .deliverables li::before{right:0;left:auto}
 :root[lang="ar"] .process-page .cta-actions{justify-content:flex-start}
+:root[lang="ar"] .cross{direction:ltr;text-align:left}
+:root[lang="ar"] .cross .band{right:auto;left:-5%;direction:ltr;text-align:left}
+:root[lang="ar"] .cross .band-track{direction:ltr}
+:root[lang="ar"] .social{right:auto;left:max(16px,env(safe-area-inset-left));direction:ltr;align-items:flex-start}
+:root[lang="ar"] .social-menu{direction:ltr;transform-origin:bottom left}
+:root[lang="ar"] .social-menu a{direction:ltr}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .reveal{opacity:1;transform:none}}
 
 
