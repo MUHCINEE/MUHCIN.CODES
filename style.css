@@ -191,13 +191,20 @@ h1{font-size:clamp(64px,13vw,210px)}
   .case-caption{font-size:9px}
   .work-actions{width:100%}
   .work-btn{flex:1}
-  .header{gap:6px}
-  .logo{font-size:21px}
-  .theme-toggle{margin-left:auto}
+  .header{gap:8px}
+  .logo{font-size:21px;white-space:nowrap}
+  .language-switch{margin-left:auto;margin-right:2px;gap:1px;padding:3px}
+  .language-switch button{min-width:28px;padding:6px 4px;font-size:10px}
+  .theme-toggle{margin-left:0}
   .theme-toggle{width:36px;height:36px}
   .burger{width:36px;height:36px}
-  .language-switch{padding:2px}
-  .language-switch button{min-width:23px;padding:5px 3px;font-size:9px}
+}
+@media(max-width:360px){
+  .header{gap:4px}
+  .logo{flex-shrink:0;font-size:18px}
+  .language-switch{gap:0;margin-right:0;padding:2px}
+  .language-switch button{min-width:26px;padding:5px 3px}
+  .theme-toggle,.burger{flex-shrink:0;width:34px;height:34px}
 }
 :root[lang="ar"] body{font-family:Tahoma,Arial,sans-serif}
 :root[lang="ar"] .hero-inner,:root[lang="ar"] .grid-2,:root[lang="ar"] .work-content,:root[lang="ar"] .case-main,:root[lang="ar"] .form{ text-align:right }
